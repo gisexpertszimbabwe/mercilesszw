@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Merciless ZW | Zim's Best MC — OOH WOW EMPIRE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --gold:#FFB800; --gold-dim:#cc9400; --gold-glow:rgba(255,184,0,0.16); --red:#e63946; --transition:0.35s cubic-bezier(0.4,0,0.2,1); }
+    [data-theme="dark"] { --bg:#090909;--bg2:#111;--bg3:#181818;--bg4:#222;--bg5:#2a2a2a;--text:#f0ede8;--text2:rgba(240,237,232,.65);--text3:#777;--border:rgba(255,255,255,.07);--border2:rgba(255,184,0,.18);--card:#161616;--overlay:rgba(9,9,9,.88);--inp:#1e1e1e; }
+    [data-theme="light"] { --bg:#f7f4ef;--bg2:#eeeae3;--bg3:#e5e1da;--bg4:#dbd7cf;--bg5:#cfcbc2;--text:#1a1814;--text2:rgba(26,24,20,.65);--text3:#888;--border:rgba(0,0,0,.09);--border2:rgba(255,184,0,.35);--card:#fff;--overlay:rgba(247,244,239,.9);--inp:#fff; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;overflow-x:hidden;transition:background var(--transition),color var(--transition);cursor:none}
+    a{text-decoration:none;cursor:pointer}
+    #cursor,#cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+    #cursor{width:10px;height:10px;background:var(--gold);transition:width .2s,height .2s}
+    #cursor-ring{width:34px;height:34px;border:1.5px solid rgba(255,184,0,.4);transition:width .25s,height .25s}
+    nav{position:fixed;top:0;width:100%;z-index:900;background:var(--overlay);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--border2);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;transition:background var(--transition)}
+    .logo-text{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--gold);line-height:1}
+    .logo-sub{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:5px;color:var(--text3);text-transform:uppercase}
+    .nav-links{list-style:none;display:flex;gap:26px;align-items:center}
+    .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold)}
+    .nav-cta{background:var(--gold)!important;color:#000!important;padding:7px 18px;font-weight:700!important}
+    .nav-cta:hover{background:var(--text)!important;color:var(--bg)!important}
+    .nav-right{display:flex;align-items:center;gap:12px}
+    .theme-toggle{position:relative;width:48px;height:26px;background:var(--bg4);border-radius:13px;border:1px solid var(--border);cursor:pointer;transition:background var(--transition);flex-shrink:0}
+    .theme-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--gold);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;justify-content:center;font-size:10px}
+    [data-theme="light"] .theme-thumb{transform:translateX(22px)}
+    .admin-btn{background:none;border:1px solid var(--border);color:var(--text3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:border-color .2s,color .2s}
+    .admin-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .hero{min-height:100vh;position:relative;display:flex;align-items:flex-end;padding:0 60px 90px;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 36%,rgba(9,9,9,.4) 76%),url('https://i.audiomack.com/mercilesszw/9dd8a481cf.webp') center/cover no-repeat;transform:scale(1.05);transition:transform 8s ease-out,background var(--transition)}
+    [data-theme="light"] .hero-bg{background:linear-gradient(to right,#f7f4ef 34%,rgba(247,244,239,.3) 74%),url('https://i.audiomack.com/mercilesszw/9dd8a481cf.webp') center/cover no-repeat}
+    .hero-bg.loaded{transform:scale(1)}
+    .hero-noise{position:absolute;inset:0;z-index:1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E")}
+    .hero-content{position:relative;z-index:2;max-width:680px}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;padding:5px 14px;margin-bottom:26px;animation:fadeUp .8s .2s both}
+    .hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(68px,11vw,128px);line-height:.88;letter-spacing:4px;color:var(--text);animation:fadeUp .8s .35s both}
+    .hero-name em{color:var(--gold);font-style:normal}
+    .hero-sub{font-family:'Barlow Condensed',sans-serif;font-size:16px;letter-spacing:5px;color:var(--text3);text-transform:uppercase;margin-top:10px;animation:fadeUp .8s .5s both}
+    .hero-desc{font-size:15px;line-height:1.75;color:var(--text2);max-width:480px;margin-top:22px;animation:fadeUp .8s .65s both}
+    .hero-stats{display:flex;gap:36px;margin-top:32px;animation:fadeUp .8s .8s both}
+    .stat-n{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--gold);line-height:1}
+    .stat-l{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;color:var(--text3);text-transform:uppercase}
+    .hero-btns{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;animation:fadeUp .8s .95s both}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;font-weight:700;text-transform:uppercase;padding:13px 28px;transition:all .2s;cursor:pointer;border:none}
+    .btn-gold{background:var(--gold);color:#000}
+    .btn-gold:hover{background:var(--text);color:var(--bg);transform:translateY(-2px)}
+    .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+    .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+    .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp .8s 1.1s both}
+    .scroll-hint span{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--text3)}
+    .scroll-line{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);animation:pulse 2s ease-in-out infinite}
+    .ticker-wrap{background:var(--gold);overflow:hidden;padding:10px 0}
+    .ticker{display:inline-block;white-space:nowrap;animation:tick 32s linear infinite}
+    .ticker span{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:#000;margin-right:56px}
+    section{padding:96px 60px}
+    .sec-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,76px);line-height:.92;letter-spacing:2px;color:var(--text);margin-bottom:40px}
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.in{opacity:1;transform:none}
+    #music{background:var(--bg2)}
+    .track-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+    .track-card{background:var(--card);border:1px solid var(--border);overflow:hidden;position:relative;transition:transform .3s,border-color .3s,box-shadow .3s;cursor:pointer}
+    .track-card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 16px 48px rgba(255,184,0,.12)}
+    .track-card:hover .tc-overlay{opacity:1}
+    .track-card:hover .tc-img{transform:scale(1.06)}
+    .tc-img-wrap{position:relative;padding-bottom:100%;overflow:hidden}
+    .tc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+    .tc-overlay{position:absolute;inset:0;background:rgba(0,0,0,.52);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+    .tc-play{width:54px;height:54px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center}
+    .tc-play svg{width:22px;fill:#000;margin-left:3px}
+    .tc-badge{position:absolute;top:10px;left:10px;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px}
+    .tc-info{padding:14px 16px}
+    .tc-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tc-artist{font-size:12px;color:var(--text3);margin-top:3px}
+    #mixtapes{background:var(--bg3)}
+    .mixtape-list{display:flex;flex-direction:column;gap:12px}
+    .mix-item{background:var(--card);border:1px solid var(--border);padding:18px 22px;display:grid;grid-template-columns:64px 1fr auto;gap:18px;align-items:center;transition:border-color .25s,background .25s}
+    .mix-item:hover{border-color:var(--gold);background:var(--bg4)}
+    .mix-cover{width:64px;height:64px;object-fit:cover;flex-shrink:0}
+    .mix-meta{min-width:0}
+    .mix-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .mix-desc{font-size:12px;color:var(--text3);margin-top:3px}
+    .mix-audio-wrap{display:none;grid-column:1/-1;padding:10px 0 2px}
+    .mix-audio-wrap.open{display:block}
+    .mix-bar{background:var(--bg5);padding:12px 16px;display:flex;align-items:center;gap:14px}
+    .mix-playbtn{width:38px;height:38px;border-radius:50%;background:var(--gold);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .2s,transform .15s}
+    .mix-playbtn:hover{background:var(--text);transform:scale(1.05)}
+    .mix-playbtn svg{fill:#000;width:14px}
+    .mix-prog{flex:1;height:4px;background:var(--border);border-radius:2px;cursor:pointer;position:relative}
+    .mix-prog-fill{height:100%;background:var(--gold);border-radius:2px;width:0%;pointer-events:none}
+    .mix-time{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--text3);white-space:nowrap}
+    .mix-vol{-webkit-appearance:none;width:64px;height:3px;background:var(--border);border-radius:2px;cursor:pointer}
+    .mix-vol::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--gold);cursor:pointer}
+    .mix-actions{display:flex;gap:8px;align-items:center}
+    .mix-btn{background:none;border:1px solid var(--border);color:var(--text3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+    .mix-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .mix-btn.on{background:var(--gold);border-color:var(--gold);color:#000}
+    #gallery{background:var(--bg)}
+    .gal-grid{columns:3;gap:12px;margin-top:8px}
+    @media(max-width:900px){.gal-grid{columns:2}}
+    @media(max-width:560px){.gal-grid{columns:1}}
+    .gi{break-inside:avoid;margin-bottom:12px;overflow:hidden;position:relative;border:1px solid var(--border);cursor:pointer;transition:border-color .3s}
+    .gi:hover{border-color:var(--gold)}
+    .gi:hover .gi-ov{opacity:1}
+    .gi:hover .gi-img{transform:scale(1.04)}
+    .gi-img{width:100%;display:block;transition:transform .5s ease}
+    .gi-ov{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+    .gi-zoom{width:44px;height:44px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center}
+    .gi-zoom svg{width:20px;fill:#000}
+    .gi-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:28px 12px 10px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;color:#fff;opacity:0;transition:opacity .3s}
+    .gi:hover .gi-cap{opacity:1}
+    #lightbox{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+    #lightbox.open{opacity:1;pointer-events:all}
+    #lightbox img{max-width:88vw;max-height:88vh;object-fit:contain;border:1px solid var(--border2)}
+    .lb-x{position:absolute;top:24px;right:28px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;transition:color .2s}
+    .lb-x:hover{color:var(--gold)}
+    .lb-arr{position:absolute;top:50%;transform:translateY(-50%);background:var(--gold);border:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
+    .lb-arr:hover{background:#fff}
+    .lb-arr svg{fill:#000;width:20px}
+    #lb-prev{left:20px}
+    #lb-next{right:20px}
+    #lb-cap{position:absolute;bottom:20px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2px;color:rgba(255,255,255,.7);text-align:center}
+    #about{background:var(--bg2);display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    .about-iw{position:relative}
+    .about-img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;filter:grayscale(15%) contrast(1.05);transition:filter .4s;display:block}
+    .about-iw:hover .about-img{filter:none}
+    .about-frame{position:absolute;bottom:-14px;right:-14px;width:calc(100% - 28px);height:calc(100% - 28px);border:2px solid var(--gold);pointer-events:none;z-index:-1}
+    .bq{font-family:'Barlow Condensed',sans-serif;font-size:clamp(20px,2.6vw,30px);font-weight:700;line-height:1.35;color:var(--text);border-left:3px solid var(--gold);padding-left:18px;margin:28px 0}
+    .ab{font-size:15px;line-height:1.8;color:var(--text2)}
+    .ab+.ab{margin-top:14px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+    .tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid var(--border2);padding:4px 12px;transition:background .2s,color .2s;cursor:default}
+    .tag:hover{background:var(--gold);color:#000}
+    #journey{background:var(--bg3)}
+    .timeline{position:relative;margin-top:52px;padding-left:36px}
+    .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(var(--gold),transparent)}
+    .t-item{position:relative;margin-bottom:44px;opacity:0;transform:translateX(-20px);transition:opacity .6s ease,transform .6s ease}
+    .t-item.in{opacity:1;transform:none}
+    .t-item::before{content:'';position:absolute;left:-42px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px var(--gold)}
+    .t-year{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--gold)}
+    .t-title{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:700;color:var(--text);margin-top:2px}
+    .t-desc{font-size:14px;color:var(--text3);line-height:1.65;margin-top:5px;max-width:520px}
+    #booking{background:var(--bg2)}
+    .book-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:start;margin-top:20px}
+    .book-info h3{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--text);margin-bottom:16px}
+    .book-info p{font-size:14px;line-height:1.8;color:var(--text2);margin-bottom:12px}
+    .clist{list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:12px}
+    .clist li{display:flex;align-items:center;gap:12px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;color:var(--text2)}
+    .clist svg{width:16px;fill:var(--gold);flex-shrink:0}
+    .bform{display:flex;flex-direction:column;gap:14px}
+    .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .fg{display:flex;flex-direction:column;gap:5px}
+    .fl{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text3)}
+    .fi,.fsel,.fta{background:var(--inp);border:1px solid var(--border);color:var(--text);font-family:'Barlow',sans-serif;font-size:14px;padding:12px 14px;outline:none;width:100%;transition:border-color .2s;-webkit-appearance:none}
+    .fi:focus,.fsel:focus,.fta:focus{border-color:var(--gold)}
+    .fta{resize:vertical;min-height:100px}
+    .fsub{background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:15px 32px;border:none;cursor:pointer;width:100%;transition:background .2s,transform .15s;margin-top:4px}
+    .fsub:hover{background:var(--text);color:var(--bg);transform:translateY(-2px)}
+    .fnotice{display:none;padding:12px 16px;font-size:13px;font-family:'Barlow Condensed';letter-spacing:1px}
+    .fnotice.ok{background:rgba(39,174,96,.15);color:#27ae60;border:1px solid rgba(39,174,96,.3);display:block}
+    .fnotice.err{background:rgba(230,57,70,.15);color:var(--red);border:1px solid rgba(230,57,70,.3);display:block}
+    #connect{background:var(--bg);text-align:center}
+    .socials{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:44px}
+    .scard{display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 32px;background:var(--card);border:1px solid var(--border);min-width:130px;transition:border-color .3s,transform .3s,background .3s}
+    .scard:hover{border-color:var(--gold);background:var(--gold-glow);transform:translateY(-5px)}
+    .scard svg{width:30px;height:30px;fill:var(--gold)}
+    .scard-l{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text3)}
+    .cta-banner{margin-top:52px;background:var(--bg3);border:1px solid var(--border2);padding:36px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px}
+    .cta-banner h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,3vw,38px);letter-spacing:2px;color:var(--text)}
+    .cta-banner p{font-size:13px;color:var(--text3);margin-top:4px}
+    footer{background:#050505;border-top:1px solid var(--border2);padding:28px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+    .fl-brand{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--gold)}
+    .fl-copy{font-size:11px;color:var(--text3);text-align:center;line-height:1.7}
+    .fl-dev{font-size:11px;color:var(--text3)}
+    .fl-dev a{color:var(--gold);font-weight:600;transition:color .2s}
+    .fl-dev a:hover{color:#fff}
+    #gplayer{position:fixed;bottom:0;left:0;right:0;z-index:800;background:rgba(12,12,12,.97);backdrop-filter:blur(20px);border-top:1px solid var(--border2);padding:10px 36px;display:grid;grid-template-columns:200px 1fr 200px;align-items:center;gap:20px;transform:translateY(100%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+    [data-theme="light"] #gplayer{background:rgba(245,242,237,.97)}
+    #gplayer.show{transform:translateY(0)}
+    .gp-l{display:flex;align-items:center;gap:12px;min-width:0}
+    .gp-thumb{width:42px;height:42px;object-fit:cover;flex-shrink:0}
+    .gp-tn{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .gp-ar{font-size:11px;color:var(--text3)}
+    .gp-c{display:flex;flex-direction:column;align-items:center;gap:8px}
+    .gp-ctrl{display:flex;align-items:center;gap:14px}
+    .gp-btn{background:none;border:none;color:var(--text3);cursor:pointer;display:flex;align-items:center;transition:color .2s,transform .15s}
+    .gp-btn:hover{color:var(--text);transform:scale(1.1)}
+    .gp-play{width:40px;height:40px;border-radius:50%;background:var(--gold);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,transform .15s}
+    .gp-play:hover{background:var(--text);transform:scale(1.05)}
+    .gp-play svg{fill:#000}
+    .gp-pb{width:100%;height:3px;background:var(--border);border-radius:2px;cursor:pointer;position:relative}
+    .gp-pf{height:100%;background:var(--gold);border-radius:2px;width:0%;pointer-events:none}
+    .gp-times{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:4px;font-family:'Barlow Condensed'}
+    .gp-r{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+    .gp-vol{-webkit-appearance:none;width:72px;height:3px;background:var(--border);border-radius:2px;cursor:pointer}
+    .gp-vol::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--gold);cursor:pointer}
+    .gp-x{background:none;border:none;color:var(--text3);cursor:pointer;font-size:18px;transition:color .2s}
+    .gp-x:hover{color:var(--text)}
+    .modal-bg{position:fixed;inset:0;z-index:1500;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+    .modal-bg.open{opacity:1;pointer-events:all}
+    .modal{background:var(--bg2);border:1px solid var(--border2);width:min(540px,94vw);max-height:90vh;overflow-y:auto;padding:36px;position:relative;transform:scale(.94);transition:transform .3s}
+    .modal-bg.open .modal{transform:scale(1)}
+    .m-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--text);margin-bottom:6px}
+    .m-sub{font-size:13px;color:var(--text3);margin-bottom:24px}
+    .m-x{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--text3);font-size:22px;cursor:pointer;transition:color .2s}
+    .m-x:hover{color:var(--text)}
+    #aLogin,#aPanel{display:flex;flex-direction:column;gap:14px}
+    #aPanel{display:none}
+    #aPanel.show{display:flex}
+    .a-tl{display:flex;flex-direction:column;gap:10px;max-height:260px;overflow-y:auto}
+    .a-ti{display:flex;align-items:center;gap:10px;background:var(--bg3);padding:10px 12px;border:1px solid var(--border)}
+    .a-ti span{flex:1;font-size:13px;color:var(--text);font-family:'Barlow Condensed'}
+    .a-del{background:none;border:1px solid var(--red);color:var(--red);font-size:11px;letter-spacing:1px;padding:4px 10px;cursor:pointer;transition:background .2s}
+    .a-del:hover{background:var(--red);color:#fff}
+    .a-h{border:none;border-top:1px solid var(--border)}
+    .a-sec{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-top:4px}
+    .a-logout{background:none;border:1px solid var(--border);color:var(--text3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:8px 14px;cursor:pointer;margin-top:8px;transition:border-color .2s,color .2s}
+    .a-logout:hover{border-color:var(--red);color:var(--red)}
+    .mf-help{display:none;background:var(--bg3);padding:12px;font-size:12px;color:var(--text2);line-height:1.7;border:1px solid var(--border2);border-radius:0}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+    @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+    @media(max-width:820px){nav{padding:0 18px}.nav-links{display:none}section{padding:66px 22px}.hero{padding:0 22px 80px}#about{grid-template-columns:1fr;gap:36px}.book-grid{grid-template-columns:1fr;gap:36px}footer{padding:22px;flex-direction:column;text-align:center}#gplayer{grid-template-columns:1fr;padding:14px 18px}.gp-r{display:none}.frow{grid-template-columns:1fr}.gal-grid{columns:2}}
+  </style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<audio id="ga" preload="none"></audio>
+
+<nav id="nav">
+  <a href="#home" style="display:flex;flex-direction:column;">
+    <div class="logo-text">MERCILESS ZW</div>
+    <div class="logo-sub">OOH WOW EMPIRE</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#music">Music</a></li>
+    <li><a href="#mixtapes">Mixtapes</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#booking">Booking</a></li>
+    <li><a href="#connect">Connect</a></li>
+    <li><a href="https://audiomack.com/mercilesszw" target="_blank" class="nav-cta">Stream</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <div class="theme-thumb" id="tt">☀️</div>
+    </button>
+    <button class="admin-btn" onclick="openAdmin()">⚙ Admin</button>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg" id="hbg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🔥 Zimbabwe's #1 MC</div>
+    <h1 class="hero-name">MERCI<em>LESS</em><br>ZIM</h1>
+    <div class="hero-sub">MC · Deejay · Radio & TV Personality</div>
+    <p class="hero-desc">From the vibrant streets of Mbare, Harare — <strong>Tatenda Charlton Nyevera</strong>, aka Merciless ZW, is the undisputed king of Zim Dancehall and founder of the mighty <strong>OOH WOW EMPIRE</strong> 🦁</p>
+    <div class="hero-stats">
+      <div><div class="stat-n">24.1K</div><div class="stat-l">Total Plays</div></div>
+      <div><div class="stat-n">514</div><div class="stat-l">Followers</div></div>
+      <div><div class="stat-n">70K+</div><div class="stat-l">FB Fans</div></div>
+      <div><div class="stat-n">2014</div><div class="stat-l">Empire Est.</div></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#mixtapes" class="btn btn-gold"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Listen Now</a>
+      <a href="#booking" class="btn btn-ghost">Book Merciless</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<div class="ticker-wrap"><div class="ticker">
+  <span>OOH WOW EMPIRE ✦</span><span>MERCILESS ZIMBABWE ✦</span><span>ZIM'S BEST MC ✦</span><span>POWER FM HOST ✦</span><span>ZBC TV PRESENTER ✦</span><span>DANCEHALL KING ✦</span><span>HARARE FINEST ✦</span><span>YES MY KING ✦</span>
+  <span>OOH WOW EMPIRE ✦</span><span>MERCILESS ZIMBABWE ✦</span><span>ZIM'S BEST MC ✦</span><span>POWER FM HOST ✦</span><span>ZBC TV PRESENTER ✦</span><span>DANCEHALL KING ✦</span><span>HARARE FINEST ✦</span><span>YES MY KING ✦</span>
+</div></div>
+
+<section id="music">
+  <div class="sec-label">Discography</div>
+  <h2 class="sec-title">FEATURED TRACKS</h2>
+  <div class="track-grid">
+    <div class="track-card reveal" data-url="https://audiomack.com/mercilesszw/song/ooh-wow-empire-vol-18"><div class="tc-img-wrap"><img class="tc-img" src="https://i.audiomack.com/mercilesszw/3028cab013.webp" alt="Vol 18" loading="lazy"/><div class="tc-overlay"><div class="tc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><div class="tc-badge">Latest</div></div><div class="tc-info"><div class="tc-title">Ooh Wow Empire Vol 18</div><div class="tc-artist">mercilesszim</div></div></div>
+    <div class="track-card reveal" data-url="https://audiomack.com/mercilesszw/song/ooh-wow-vol-17"><div class="tc-img-wrap"><img class="tc-img" src="https://i.audiomack.com/charlton-nyevera/9dd8a481cf.webp" alt="Vol 17" loading="lazy"/><div class="tc-overlay"><div class="tc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><div class="tc-badge">Top</div></div><div class="tc-info"><div class="tc-title">Ooh Wow Vol 17</div><div class="tc-artist">merciless zim</div></div></div>
+    <div class="track-card reveal" data-url="https://audiomack.com/mercilesszw/song/14169495"><div class="tc-img-wrap"><img class="tc-img" src="https://i.audiomack.com/charlton-nyevera/377f75c59d.webp" alt="Vol 16" loading="lazy"/><div class="tc-overlay"><div class="tc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="tc-info"><div class="tc-title">Ooh Wow Empire Vol 16</div><div class="tc-artist">100% Soul Jahluv</div></div></div>
+    <div class="track-card reveal" data-url="https://audiomack.com/mercilesszw/song/14167237"><div class="tc-img-wrap"><img class="tc-img" src="https://i.audiomack.com/charlton-nyevera/1307215e08.webp" alt="Vol 15" loading="lazy"/><div class="tc-overlay"><div class="tc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="tc-info"><div class="tc-title">Ooh Wow Empire Vol 15</div><div class="tc-artist">× dj tecco</div></div></div>
+  </div>
+  <div style="margin-top:44px;border:1px solid var(--border2);overflow:hidden;" class="reveal">
+    <iframe src="https://audiomack.com/embed/mercilesszw/song/ooh-wow-empire-vol-18?background=1&color=%23ffb800" style="width:100%;height:240px;border:none;" scrolling="no" allow="autoplay" loading="lazy"></iframe>
+  </div>
+  <div style="text-align:center;margin-top:36px;"><a href="https://audiomack.com/mercilesszw" target="_blank" class="btn btn-gold">View Full Discography on Audiomack →</a></div>
+</section>
+
+<section id="mixtapes">
+  <div class="sec-label">Download &amp; Stream Free</div>
+  <h2 class="sec-title">MIXTAPE VAULT</h2>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:36px;max-width:560px;line-height:1.7;">Stream directly in-browser or download free via MediaFire. All mixtapes are 100% free. Click ▶ Play to listen onsite, or Download to save 🎵</p>
+  <div class="mixtape-list" id="mxList"></div>
+  <div id="mxEmpty" style="display:none;text-align:center;padding:48px;color:var(--text3);"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;">No Mixtapes Added Yet</div><div style="margin-top:10px;font-size:13px;">Login as Admin to add MediaFire links ⚙</div></div>
+</section>
+
+<section id="gallery">
+  <div class="sec-label">Photos &amp; Moments</div>
+  <h2 class="sec-title">THE GALLERY</h2>
+  <p style="color:var(--text2);font-size:13px;margin-bottom:32px;">Follow <a href="https://www.facebook.com/mercilesszim/" target="_blank" style="color:var(--gold)">@mercilesszim on Facebook</a> &amp; <a href="https://www.instagram.com/mercilesszim/" target="_blank" style="color:var(--gold)">@mercilesszim on Instagram</a> for the latest</p>
+  <div class="gal-grid" id="galGrid"></div>
+</section>
+
+<div id="lightbox">
+  <button class="lb-x" onclick="closeLB()">✕</button>
+  <button class="lb-arr" id="lb-prev" onclick="lbNav(-1)"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+  <img id="lb-img" src="" alt=""/>
+  <button class="lb-arr" id="lb-next" onclick="lbNav(1)"><svg viewBox="0 0 24 24"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+  <div id="lb-cap"></div>
+</div>
+
+<section id="about">
+  <div class="about-iw reveal"><img class="about-img" src="https://i.audiomack.com/mercilesszw/9dd8a481cf.webp" alt="Merciless ZW" loading="lazy"/><div class="about-frame"></div></div>
+  <div class="reveal">
+    <div class="sec-label">The Man Behind The Mic</div>
+    <h2 class="sec-title">WHO IS<br>MERCILESS?</h2>
+    <blockquote class="bq">"Growing up in Mbare where ghetto youths are associated with dancehall triggered my passion for music."</blockquote>
+    <p class="ab">Born <strong>Tatenda Charlton Nyevera</strong> on July 3, 1990 in Mbare, Harare. Zimbabwe's most dynamic dancehall MC — a rare force who commands the stage, the airwaves, and the dance floor simultaneously.</p>
+    <p class="ab">Hosts <strong style="color:var(--gold)">Weddy Weddy Wednesday</strong> &amp; <strong style="color:var(--gold)">Caribbean Power Jam</strong> on Power FM. Presenter on <strong style="color:var(--gold)">Jamdown</strong> on ZBC TV. MC at Zimbabwe's biggest concerts alongside Winky D, Jah Prayzah &amp; Nutty O.</p>
+    <div class="tags"><span class="tag">Dancehall</span><span class="tag">MC</span><span class="tag">Radio Host</span><span class="tag">ZBC TV</span><span class="tag">Power FM</span><span class="tag">OOH WOW Empire</span><span class="tag">Mbare</span><span class="tag">Harare 🇿🇼</span></div>
+  </div>
+</section>
+
+<section id="journey">
+  <div class="sec-label">The Story So Far</div>
+  <h2 class="sec-title">THE JOURNEY</h2>
+  <div class="timeline">
+    <div class="t-item"><div class="t-year">2008</div><div class="t-title">Enters The Game</div><div class="t-desc">Associates with dancehall under King Labash of "Kukonzeresa" fame. Learns from Major E, Etherton Bennie, Abisha Palmer and Templeman.</div></div>
+    <div class="t-item"><div class="t-year">2010</div><div class="t-title">Legendary Sound Movement</div><div class="t-desc">Joins Legendary Sound — home to Badman Bee, SM &amp; others. Becomes the movement's standout MC.</div></div>
+    <div class="t-item"><div class="t-year">2013</div><div class="t-title">TV Debut — Bos TV</div><div class="t-desc">Presents Rockers Island on Bos TV (2013–2014), earning national exposure and a dedicated following.</div></div>
+    <div class="t-item"><div class="t-year">2014</div><div class="t-title">OOH WOW EMPIRE Founded 🦁</div><div class="t-desc">Launches his empire with DJs Sakhie and Jerry Springer. 10+ mixtapes, residency at Club Red 32 — Harare's most happening Mad Sundays.</div></div>
+    <div class="t-item"><div class="t-year">2015</div><div class="t-title">ZBC Jamdown Presenter</div><div class="t-desc">Joins Zimbabwe Broadcasting Corporation presenting the Jamdown reggae show — reaching households across the nation.</div></div>
+    <div class="t-item"><div class="t-year">2017</div><div class="t-title">Power FM Radio Host</div><div class="t-desc">Hosts Weddy Weddy Wednesday &amp; Caribbean Power Jam. Celebrates 5 years on radio in 2022 with a legendary birthday bash at Wood Pub &amp; Grill.</div></div>
+    <div class="t-item"><div class="t-year">NOW</div><div class="t-title">Vol 18 &amp; Beyond 🔥</div><div class="t-desc">Ooh Wow Empire Vol 18 drops. 70,000+ Facebook fans, 24K+ Audiomack plays. The king keeps building. YES MY KING!</div></div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="sec-label">Hire The King</div>
+  <h2 class="sec-title">BOOK<br>MERCILESS</h2>
+  <div class="book-grid">
+    <div class="book-info reveal">
+      <h3>CONCERTS · CLUBS · CORPORATE · EVENTS</h3>
+      <p>Zimbabwe's most energetic MC is available for bookings across Harare, Bulawayo, and beyond. Whether you need an electric MC for a concert, a club night, a TV appearance, or a corporate event — Merciless ZW delivers unmatched crowd energy every time.</p>
+      <p>Fill in the form and our team will respond within 24 hours. For urgent enquiries, reach out directly via WhatsApp.</p>
+      <ul class="clist">
+        <li><svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.12-.56-2.32-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>+263 77 xxx xxxx (WhatsApp)</li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>bookings@mercilesszw.com</li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Harare, Zimbabwe 🇿🇼</li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <div id="bNotice" class="fnotice"></div>
+      <form class="bform" id="bForm" onsubmit="submitBook(event)">
+        <div class="frow">
+          <div class="fg"><label class="fl">Your Name *</label><input class="fi" id="bN" type="text" placeholder="Full Name" required/></div>
+          <div class="fg"><label class="fl">Phone / WhatsApp *</label><input class="fi" id="bP" type="tel" placeholder="+263 77 000 0000" required/></div>
+        </div>
+        <div class="fg"><label class="fl">Email Address</label><input class="fi" id="bE" type="email" placeholder="you@email.com"/></div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Event Type *</label><select class="fsel" id="bT" required><option value="" disabled selected>Select type</option><option>Concert / Live Show</option><option>Club Night / Residency</option><option>Corporate Event</option><option>Radio / TV Appearance</option><option>Birthday / Private Party</option><option>Festival</option><option>Other</option></select></div>
+          <div class="fg"><label class="fl">Event Date *</label><input class="fi" id="bD" type="date" required/></div>
+        </div>
+        <div class="fg"><label class="fl">Venue / Location</label><input class="fi" id="bV" type="text" placeholder="e.g. Club Red 32, Harare"/></div>
+        <div class="fg"><label class="fl">Message</label><textarea class="fta" id="bM" placeholder="Tell us about your event, expected attendance, budget range..."></textarea></div>
+        <button type="submit" class="fsub">🎤 Send Booking Request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="connect">
+  <div class="sec-label">Find Merciless Online</div>
+  <h2 class="sec-title">CONNECT<br>WITH THE KING</h2>
+  <div class="socials">
+    <a class="scard" href="https://audiomack.com/mercilesszw" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.995 16.338a.748.748 0 01-.748-.748V8.41l-5.244 7.928a.748.748 0 01-1.296-.748V7.662a.748.748 0 011.496 0v7.18l5.244-7.928a.748.748 0 011.296.748v7.928a.748.748 0 01-.748.748z"/></svg><div class="scard-l">Audiomack</div></a>
+    <a class="scard" href="https://www.facebook.com/mercilesszim/" target="_blank"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg><div class="scard-l">Facebook · 70K+</div></a>
+    <a class="scard" href="https://www.facebook.com/share/18RiqV35YE/" target="_blank"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg><div class="scard-l">Watch Videos</div></a>
+    <a class="scard" href="https://www.instagram.com/mercilesszim/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg><div class="scard-l">Instagram</div></a>
+  </div>
+  <div class="cta-banner reveal">
+    <div><h3>STREAM THE LATEST MIXTAPE FREE</h3><p>Ooh Wow Empire Vol 18 — Available on Audiomack &amp; MediaFire</p></div>
+    <a href="https://audiomack.com/mercilesszw/song/ooh-wow-empire-vol-18" target="_blank" class="btn btn-gold">🎵 Stream Free Now</a>
+  </div>
+</section>
+
+<footer>
+  <div><div class="fl-brand">MERCILESS ZW</div><div style="font-size:10px;color:var(--text3);letter-spacing:2px;margin-top:2px;">OOH WOW EMPIRE · EST. 2014</div></div>
+  <div class="fl-copy">© 2025 Merciless Zimbabwe — All Rights Reserved<br><span style="opacity:.45;font-size:10px;">MC · Deejay · Radio &amp; TV Personality · Harare, Zimbabwe</span></div>
+  <div class="fl-dev">Developed by <a href="https://apexfourventures.co.zw" target="_blank">GIS Experts</a></div>
+</footer>
+
+<!-- Global Player -->
+<div id="gplayer">
+  <div class="gp-l"><img class="gp-thumb" id="gpTh" src="" alt=""/><div><div class="gp-tn" id="gpTn">—</div><div class="gp-ar">Merciless ZW</div></div></div>
+  <div class="gp-c">
+    <div class="gp-ctrl">
+      <button class="gp-btn" id="gpPr"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></button>
+      <button class="gp-play" id="gpPl"><svg id="gpPi" width="20" height="20" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      <button class="gp-btn" id="gpNx"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2.5-6 5.5 3.9V8.1L8.5 12zM16 6h2v12h-2z"/></svg></button>
+    </div>
+    <div style="width:100%"><div class="gp-pb" id="gpPb"><div class="gp-pf" id="gpPf"></div></div><div class="gp-times"><span id="gpEl">0:00</span><span id="gpDu">0:00</span></div></div>
+  </div>
+  <div class="gp-r"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--text3)"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg><input type="range" class="gp-vol" id="gpVol" min="0" max="100" value="80"/><button class="gp-x" id="gpX">✕</button></div>
+</div>
+
+<!-- Admin Modal -->
+<div class="modal-bg" id="aModal">
+  <div class="modal">
+    <button class="m-x" onclick="closeAdmin()">✕</button>
+    <div class="m-title">ADMIN PANEL</div>
+    <div class="m-sub" id="aSub">Login to manage mixtapes &amp; gallery</div>
+    <div id="aLogin">
+      <div class="fg"><label class="fl">Username</label><input class="fi" type="text" id="aU" placeholder="admin"/></div>
+      <div class="fg"><label class="fl">Password</label><input class="fi" type="password" id="aPw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <div id="aErr" style="color:var(--red);font-size:12px;font-family:'Barlow Condensed';display:none;">❌ Wrong credentials. Try again.</div>
+      <button class="btn btn-gold" onclick="doLogin()" style="width:100%">Login →</button>
+      <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:6px;">Default credentials: <strong>admin</strong> / <strong>oohwow2025</strong></div>
+    </div>
+    <div id="aPanel">
+      <div class="a-sec">➕ Add New Mixtape</div>
+      <div class="fg"><label class="fl">Title *</label><input class="fi" type="text" id="nT" placeholder="e.g. Ooh Wow Empire Vol 19"/></div>
+      <div class="fg"><label class="fl">Description</label><input class="fi" type="text" id="nD" placeholder="e.g. 100% Dancehall · 2025"/></div>
+      <div class="fg"><label class="fl">Cover Image URL</label><input class="fi" type="url" id="nC" placeholder="https://i.audiomack.com/... or any image URL"/></div>
+      <div class="fg"><label class="fl">MediaFire Direct Stream URL * <a href="#" onclick="toggleMfHelp();return false;" style="color:var(--gold);font-size:10px;">ℹ How to get?</a></label><input class="fi" type="url" id="nS" placeholder="https://download####.mediafire.com/.../mixtape.mp3"/></div>
+      <div class="mf-help" id="mfH">
+        <strong style="color:var(--gold)">📋 Getting MediaFire Direct Link (step by step):</strong><br>
+        1. Go to <a href="https://www.mediafire.com" target="_blank" style="color:var(--gold)">mediafire.com</a> → Login / Create free account<br>
+        2. Upload your MP3 file (up to 10GB free!)<br>
+        3. Once uploaded, click the file in My Files<br>
+        4. Click the blue <strong>Download</strong> button<br>
+        5. When the download starts, copy the URL from your browser address bar<br>
+        &nbsp;&nbsp;&nbsp;It looks like: <code style="color:var(--gold)">https://download1234.mediafire.com/xxxxx/mix.mp3</code><br>
+        6. Paste that URL in the field above — this enables in-browser streaming ✅<br>
+        7. The page URL (<code>mediafire.com/file/.../file</code>) goes in the Download button field below
+      </div>
+      <div class="fg"><label class="fl">MediaFire Page Link (Download button)</label><input class="fi" type="url" id="nP" placeholder="https://www.mediafire.com/file/xxxxx/mix.mp3/file"/></div>
+      <button class="btn btn-gold" onclick="addMix()" style="width:100%">➕ Add Mixtape</button>
+      <div id="aMixMsg" style="font-size:12px;font-family:'Barlow Condensed';display:none;margin-top:4px;"></div>
+      <hr class="a-h"/>
+      <div class="a-sec">📀 Current Mixtapes</div>
+      <div class="a-tl" id="aTl"><div style="font-size:12px;color:var(--text3);">Loading...</div></div>
+      <hr class="a-h"/>
+      <div class="a-sec">🖼 Add Gallery Image</div>
+      <div class="fg"><label class="fl">Image URL (Facebook, Imgur, direct link)</label><input class="fi" type="url" id="nGI" placeholder="https://...your image URL..."/></div>
+      <div class="fg"><label class="fl">Caption</label><input class="fi" type="text" id="nGC" placeholder="e.g. Live at Club Red 32, 2024"/></div>
+      <button class="btn btn-gold" onclick="addGal()" style="width:100%">➕ Add to Gallery</button>
+      <div id="aGalMsg" style="font-size:12px;font-family:'Barlow Condensed';display:none;margin-top:4px;"></div>
+      <hr class="a-h"/>
+      <button class="a-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Theme
+function toggleTheme(){
+  const h=document.documentElement,d=h.dataset.theme==='dark';
+  h.dataset.theme=d?'light':'dark';
+  document.getElementById('tt').textContent=d?'🌙':'☀️';
+  localStorage.setItem('mzw_t',h.dataset.theme);
+}
+(function(){
+  const t=localStorage.getItem('mzw_t')||'dark';
+  document.documentElement.dataset.theme=t;
+  document.getElementById('tt').textContent=t==='dark'?'☀️':'🌙';
+})();
+
+// ── Cursor
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let rx=0,ry=0;
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';rx=e.clientX;ry=e.clientY;});
+(function animR(){ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR);})();
+document.querySelectorAll('a,button,.track-card,.gi,.mix-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';ring.style.width='50px';ring.style.height='50px';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='34px';ring.style.height='34px';});
+});
+
+// ── Hero
+setTimeout(()=>document.getElementById('hbg').classList.add('loaded'),100);
+
+// ── Scroll reveal
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.1});
+function regReveal(){document.querySelectorAll('.reveal,.t-item').forEach(el=>ro.observe(el));}
+regReveal();
+
+// ── Nav active
+const nAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let c='';
+  document.querySelectorAll('section[id]').forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id;});
+  nAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c));
+});
+
+// ── Audio
+const audio=document.getElementById('ga');
+let cidx=-1,tracks=[];
+const gp=document.getElementById('gplayer');
+const gpTh=document.getElementById('gpTh'),gpTn=document.getElementById('gpTn');
+const gpPl=document.getElementById('gpPl'),gpPi=document.getElementById('gpPi');
+const gpPf=document.getElementById('gpPf'),gpPb=document.getElementById('gpPb');
+const gpEl=document.getElementById('gpEl'),gpDu=document.getElementById('gpDu');
+const gpVol=document.getElementById('gpVol');
+function fmt(s){return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
+function setPI(p){gpPi.innerHTML=p?'<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>':'<path d="M8 5v14l11-7z"/>';}
+function playT(i){
+  if(i<0||i>=tracks.length)return;
+  const t=tracks[i];cidx=i;
+  gpTh.src=t.img||'';gpTn.textContent=t.title;
+  if(t.stream){audio.src=t.stream;audio.volume=gpVol.value/100;audio.play().catch(()=>{});setPI(true);gp.classList.add('show');}
+  else if(t.dl){window.open(t.dl,'_blank');}
+}
+gpPl.addEventListener('click',()=>{if(audio.paused){audio.play().catch(()=>{});setPI(true);}else{audio.pause();setPI(false);}});
+audio.addEventListener('timeupdate',()=>{
+  if(!audio.duration)return;
+  const p=(audio.currentTime/audio.duration)*100;
+  gpPf.style.width=p+'%';gpEl.textContent=fmt(audio.currentTime);gpDu.textContent=fmt(audio.duration);
+  const ow=document.querySelector('.mix-audio-wrap.open');
+  if(ow){const b=ow.querySelector('.mix-prog-fill'),t=ow.querySelector('.mix-time');if(b)b.style.width=p+'%';if(t)t.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}
+});
+audio.addEventListener('ended',()=>{setPI(false);if(cidx<tracks.length-1)playT(cidx+1);});
+gpPb.addEventListener('click',e=>{if(!audio.duration)return;const r=gpPb.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;});
+gpVol.addEventListener('input',()=>audio.volume=gpVol.value/100);
+document.getElementById('gpX').addEventListener('click',()=>{audio.pause();gp.classList.remove('show');setPI(false);document.querySelectorAll('.mix-audio-wrap').forEach(w=>{w.classList.remove('open');});document.querySelectorAll('.mix-btn.on').forEach(b=>{b.textContent='▶ Play';b.classList.remove('on');});});
+document.getElementById('gpPr').addEventListener('click',()=>{if(cidx>0)playT(cidx-1);});
+document.getElementById('gpNx').addEventListener('click',()=>{if(cidx<tracks.length-1)playT(cidx+1);});
+
+// ── Storage
+function getMx(){try{return JSON.parse(localStorage.getItem('mzw_mx')||'[]');}catch{return[];}}
+function saveMx(a){localStorage.setItem('mzw_mx',JSON.stringify(a));}
+function getGal(){try{return JSON.parse(localStorage.getItem('mzw_gal')||'[]');}catch{return[];}}
+function saveGal(a){localStorage.setItem('mzw_gal',JSON.stringify(a));}
+
+// ── Default mixtapes
+const DEF_MX=[
+  {id:'d1',title:'Ooh Wow Empire Vol 18',desc:'Latest drop · 2025',cover:'https://i.audiomack.com/mercilesszw/3028cab013.webp',stream:'',dl:'https://audiomack.com/mercilesszw/song/ooh-wow-empire-vol-18'},
+  {id:'d2',title:'Ooh Wow Vol 17',desc:'2024 · Merciless Zim',cover:'https://i.audiomack.com/charlton-nyevera/9dd8a481cf.webp',stream:'',dl:'https://audiomack.com/mercilesszw/song/ooh-wow-vol-17'},
+  {id:'d3',title:'Ooh Wow Empire Vol 16 — 100% Soul Jahluv',desc:'Merciless Zimbabwe',cover:'https://i.audiomack.com/charlton-nyevera/377f75c59d.webp',stream:'',dl:'https://audiomack.com/mercilesszw/song/14169495'},
+  {id:'d4',title:'Ooh Wow Empire Vol 15 × DJ Tecco',desc:'Merciless ZW × DJ Tecco',cover:'https://i.audiomack.com/charlton-nyevera/1307215e08.webp',stream:'',dl:'https://audiomack.com/mercilesszw/song/14167237'}
+];
+
+function renderMx(){
+  const stored=getMx(),all=[...DEF_MX,...stored];
+  tracks=all.map(m=>({title:m.title,img:m.cover,stream:m.stream,dl:m.dl}));
+  const list=document.getElementById('mxList'),empty=document.getElementById('mxEmpty');
+  if(!all.length){list.style.display='none';empty.style.display='block';return;}
+  list.style.display='flex';empty.style.display='none';
+  list.innerHTML=all.map((m,i)=>`
+    <div class="mix-item" style="display:grid;grid-template-columns:64px 1fr auto;flex-direction:row;gap:18px;align-items:center;">
+      <img class="mix-cover" src="${m.cover||'https://i.audiomack.com/mercilesszw/9dd8a481cf.webp'}" alt="${m.title}" onerror="this.src='https://i.audiomack.com/mercilesszw/9dd8a481cf.webp'" loading="lazy"/>
+      <div class="mix-meta"><div class="mix-title">${m.title}</div><div class="mix-desc">${m.desc||''}</div></div>
+      <div class="mix-actions">
+        ${m.stream
+          ?`<button class="mix-btn" onclick="toggleMxPlay(this,${i})">▶ Play</button>`
+          :`<a href="${m.dl||'#'}" target="_blank" class="mix-btn" style="text-decoration:none">▶ Stream</a>`
+        }
+        <a href="${m.dl||m.stream||'#'}" target="_blank" download class="mix-btn" style="text-decoration:none">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5v-2z"/></svg> DL
+        </a>
+      </div>
+      ${m.stream?`<div class="mix-audio-wrap" id="maw${i}" style="grid-column:1/-1;padding:10px 0 2px;display:none;">
+        <div class="mix-bar">
+          <button class="mix-playbtn" onclick="mxPP(${i})"><svg id="mxi${i}" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+          <div class="mix-prog" onclick="mxSeek(event,${i})"><div class="mix-prog-fill" id="mxpf${i}"></div></div>
+          <span class="mix-time" id="mxt${i}">0:00 / 0:00</span>
+          <input type="range" class="mix-vol" min="0" max="100" value="80" oninput="audio.volume=this.value/100"/>
+        </div>
+      </div>`:''}
+    </div>
+  `).join('');
+}
+
+function toggleMxPlay(btn,idx){
+  const w=document.getElementById('maw'+idx);
+  if(!w){playT(idx);return;}
+  const op=w.classList.contains('open');
+  document.querySelectorAll('.mix-audio-wrap').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.mix-btn.on').forEach(b=>{b.textContent='▶ Play';b.classList.remove('on');});
+  if(!op){w.classList.add('open');btn.textContent='⏹ Stop';btn.classList.add('on');playT(idx);}
+  else{audio.pause();setPI(false);}
+}
+function mxPP(i){if(audio.paused){audio.play().catch(()=>{});setPI(true);document.getElementById('mxi'+i).innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';}else{audio.pause();setPI(false);document.getElementById('mxi'+i).innerHTML='<path d="M8 5v14l11-7z"/>';}}
+function mxSeek(e,i){if(!audio.duration)return;const r=e.currentTarget.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;}
+
+// Track cards → open Audiomack
+document.querySelectorAll('.track-card').forEach(c=>c.addEventListener('click',()=>window.open(c.dataset.url,'_blank')));
+
+// ── Gallery defaults
+const DEF_GAL=[
+  {url:'https://i.audiomack.com/mercilesszw/9dd8a481cf.webp',cap:'Merciless ZW — Official Press Shot'},
+  {url:'https://i.audiomack.com/mercilesszw/3028cab013.webp',cap:'Ooh Wow Empire Vol 18 — Cover Art'},
+  {url:'https://i.audiomack.com/charlton-nyevera/9dd8a481cf.webp',cap:'Ooh Wow Vol 17 — Artwork'},
+  {url:'https://i.audiomack.com/charlton-nyevera/377f75c59d.webp',cap:'Vol 16 × 100% Soul Jahluv'},
+  {url:'https://i.audiomack.com/charlton-nyevera/1307215e08.webp',cap:'Vol 15 × DJ Tecco — Collab'},
+  {url:'https://i.audiomack.com/mercilesszw/9dd8a481cf.webp',cap:'Power FM Studio Session'}
+];
+let galItems=[],lbI=0;
+function renderGal(){
+  const stored=getGal();
+  galItems=[...DEF_GAL,...stored];
+  const g=document.getElementById('galGrid');
+  g.innerHTML=galItems.map((x,i)=>`
+    <div class="gi reveal" onclick="openLB(${i})">
+      <img class="gi-img" src="${x.url}" alt="${x.cap||''}" loading="lazy" onerror="this.parentElement.style.display='none'"/>
+      <div class="gi-ov"><div class="gi-zoom"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div></div>
+      ${x.cap?`<div class="gi-cap">${x.cap}</div>`:''}
+    </div>
+  `).join('');
+  g.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+}
+function openLB(i){lbI=i;document.getElementById('lb-img').src=galItems[i].url;document.getElementById('lb-cap').textContent=galItems[i].cap||'';document.getElementById('lightbox').classList.add('open');}
+function closeLB(){document.getElementById('lightbox').classList.remove('open');}
+function lbNav(d){lbI=(lbI+d+galItems.length)%galItems.length;document.getElementById('lb-img').src=galItems[lbI].url;document.getElementById('lb-cap').textContent=galItems[lbI].cap||'';}
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLB();});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1);if(e.key==='Escape')closeLB();});
+
+// ── Booking
+function submitBook(e){
+  e.preventDefault();
+  const n=document.getElementById('bNotice');
+  const name=document.getElementById('bN').value.trim();
+  const phone=document.getElementById('bP').value.trim();
+  if(!name||!phone){n.textContent='Please fill in all required fields.';n.className='fnotice err';return;}
+  const msg=encodeURIComponent(`*BOOKING — Merciless ZW*\n\nName: ${name}\nPhone: ${phone}\nEmail: ${document.getElementById('bE').value}\nEvent: ${document.getElementById('bT').value}\nDate: ${document.getElementById('bD').value}\nVenue: ${document.getElementById('bV').value}\nMessage: ${document.getElementById('bM').value}`);
+  n.textContent='✅ Request sent! Redirecting to WhatsApp for confirmation...';
+  n.className='fnotice ok';
+  document.getElementById('bForm').reset();
+  setTimeout(()=>window.open('https://wa.me/263770000000?text='+msg,'_blank'),1500);
+}
+
+// ── Admin
+const AU='admin',AP='oohwow2025';
+function openAdmin(){
+  document.getElementById('aModal').classList.add('open');
+  const lg=sessionStorage.getItem('mzw_a')==='1';
+  document.getElementById('aLogin').style.display=lg?'none':'flex';
+  document.getElementById('aPanel').style.display=lg?'flex':'none';
+  if(lg)renderATl();
+}
+function closeAdmin(){document.getElementById('aModal').classList.remove('open');}
+document.getElementById('aModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeAdmin();});
+function doLogin(){
+  const u=document.getElementById('aU').value,p=document.getElementById('aPw').value;
+  if(u===AU&&p===AP){
+    sessionStorage.setItem('mzw_a','1');
+    document.getElementById('aLogin').style.display='none';
+    document.getElementById('aPanel').style.display='flex';
+    document.getElementById('aSub').textContent='Welcome back! 🦁 OOH WOW EMPIRE';
+    document.getElementById('aErr').style.display='none';
+    renderATl();
+  } else document.getElementById('aErr').style.display='block';
+}
+function doLogout(){sessionStorage.removeItem('mzw_a');document.getElementById('aLogin').style.display='flex';document.getElementById('aPanel').style.display='none';document.getElementById('aU').value='';document.getElementById('aPw').value='';}
+function renderATl(){
+  const s=getMx(),tl=document.getElementById('aTl');
+  if(!s.length){tl.innerHTML='<div style="font-size:12px;color:var(--text3);padding:8px;">No custom mixtapes yet.</div>';return;}
+  tl.innerHTML=s.map((m,i)=>`<div class="a-ti"><span>${m.title}</span><button class="a-del" onclick="delMx(${i})">Delete</button></div>`).join('');
+}
+function addMix(){
+  const t=document.getElementById('nT').value.trim();
+  const msg=document.getElementById('aMixMsg');
+  if(!t){msg.textContent='❌ Title required';msg.style.color='var(--red)';msg.style.display='block';return;}
+  const s=getMx();
+  s.push({id:'u'+Date.now(),title:t,desc:document.getElementById('nD').value.trim(),cover:document.getElementById('nC').value.trim(),stream:document.getElementById('nS').value.trim(),dl:document.getElementById('nP').value.trim()});
+  saveMx(s);
+  ['nT','nD','nC','nS','nP'].forEach(id=>document.getElementById(id).value='');
+  msg.textContent='✅ Mixtape added!';msg.style.color='#27ae60';msg.style.display='block';
+  setTimeout(()=>msg.style.display='none',3000);
+  renderATl();renderMx();
+}
+function delMx(i){const s=getMx();s.splice(i,1);saveMx(s);renderATl();renderMx();}
+function addGal(){
+  const url=document.getElementById('nGI').value.trim();
+  const msg=document.getElementById('aGalMsg');
+  if(!url){msg.textContent='❌ URL required';msg.style.color='var(--red)';msg.style.display='block';return;}
+  const s=getGal();
+  s.push({url,cap:document.getElementById('nGC').value.trim()});
+  saveGal(s);
+  document.getElementById('nGI').value='';document.getElementById('nGC').value='';
+  msg.textContent='✅ Image added to gallery!';msg.style.color='#27ae60';msg.style.display='block';
+  setTimeout(()=>msg.style.display='none',3000);
+  renderGal();
+}
+function toggleMfHelp(){const h=document.getElementById('mfH');h.style.display=h.style.display==='none'||!h.style.display?'block':'none';}
+
+// ── Init
+renderMx();renderGal();
+</script>
+</body>
+</html>
